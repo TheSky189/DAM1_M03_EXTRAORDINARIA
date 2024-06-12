@@ -1,0 +1,6 @@
+1; Client=VICENTE; Date=12-06-2024 13:50:51; 
+1; Products=Hamburguesa, 24.0€; Fresa, 4.0€; 
+1; Amount=29.12 €
+2; Client=JOSE; Date=12-06-2024 13:51:00; 
+2; Products=Manzana, 8.0€; Pera, 16.0€; 
+2; Amount=24.96 €
