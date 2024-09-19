@@ -306,6 +306,8 @@ public class Shop {
 	    try {
 	        FileWriter writer = new FileWriter("files/" + filename);
 	        int saleNumber = 1;
+	        double totalSalesAmount = 0.0; // Variable para acumular el total de ventas
+
 	        for (Sale sale : sales) {
 	            if (sale != null) {
 		            String clientUpperCase = sale.getClient().toUpperCase();
@@ -316,9 +318,14 @@ public class Shop {
 	                    writer.write(products.getName() + ", " + products.getPublicPrice() + "€; ");
 	                }
 	                writer.write("\n" + saleNumber + "; Amount=" + sale.getAmount() + "\n");
+	                totalSalesAmount += sale.getAmount().getValue(); // Acumular el total de ventas
 	                saleNumber++;
 	            }
 	        }
+	        
+	        // Escribir el total de ventas de todos los clientes
+	        writer.write("Total sales of all clients: " + totalSalesAmount + "€\n");
+	        
 	        writer.close();
 	        System.out.println("Ventas exportadas correctamente al archivo: " + filename);
 	    } catch (IOException e) {
@@ -386,15 +393,15 @@ public class Shop {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] parts = line.split(";");
-                String productName = parts[0].split(":")[1];
+                String name = parts[0].split(":")[1];
                 double wholesalerPriceDollar = Double.parseDouble(parts[1].split(":")[1]);
                 int stock = Integer.parseInt(parts[2].split(":")[1]);
                 
                 double wholesalerPriceEuro = convertirDollarEuro(wholesalerPriceDollar); // Convertir a dólares
                 
-                Product product = new Product(productName, wholesalerPriceEuro, true, stock);
-                addProduct(product);
-            }
+                Product product = new Product(name, wholesalerPriceEuro, true, stock);
+                inventory.add(product);
+             }
             scanner.close();
             System.out.println("Inventario cargado correctamente desde el archivo: " + filename);
         } catch (FileNotFoundException e) {
